@@ -1,0 +1,96 @@
+ml-design-doc
+1. Overview
+It is the dataset of a U.S. bank customer for getting the information that , this particular customer will leave bank or not.
+Analyze how to retain customers
+2. Motivation
+This will help our marketing team analyze customer churn and try to retain a customer or prioritize customers properly. Decide which customers to pay more attention to.
+3. Success metrics
+business goals: business goals: it got it which customer will be leave
+
+4. Requirements & Constraints
+Functional requirements:The marketing team will be able to determine which customers should be given more attention in order to keep them in the system.
+Non-functional/technical:
+performance: must work without errors (handle errors and not stop the process, hide errors in logs),effort ML engineer is 5sp, Env cost = free, prediction data should be free,
+Security: prediction should be sending only to marketing team with password
+Constraints can come in the form of non-functional requirements (e.g., cost below $x a month, p99 latency < yms)
+4.1 What's in-scope & out-of-scope?
+Will add in future
+5. Methodology
+5.1. Problem statement
+Here our main interest is to
+get an understanding as to how the given attributes relate to the 'Exited' status.
+There are entries where a customer has exited but still maintains some balance and has a credit card with the bank, which seems conflicting.
+5.2. Data
+Will be use dataset of a U.S. bank customer
+The Data Frame 'df' has 10000 rows with 14 attributes: RowNumber,	CustomerId,	Surname,	CreditScore,	Geography,	Gender,	Age,	Tenure,	Balance,	NumOfProducts,	HasCrCard,	IsActiveMember,	EstimatedSalary,	Exited
+Out of all the features excluding rownumber, customerid and surname, we have:
+5 Numerical features
+5 Categorical features
+Input columns:
+CustomerId,Surname,Geography,Gender,Age,Tenure,Balance,NumOfProducts
+5.3. Techniques
+Prepare data: Removing the first three columns - "RowNumber", "CustomerId" and "Surname", as they are unnecessary for this case study.
+encode all the categorical features into 1s and 0s only.
+Geography column is therefore divided into its unique values and the same goes for the Gender column.
+will be use Random Forest Classifier and GridSearchCV for find best parametrs for model
+5.4. Experimentation & Validation
+will be check on X_test_data 25% from my input data
+will be use metrics like: precision, recall,  f1-score,
+5.5. Human-in-the-loop
+will be excluded test users in time select data from DB
+6. Implementation
+6.1. High-level design
+_______        _____________________      _____________     ____________    ___________           _________________             ___________________________    _______________            __________
+DataBase ----->Select necessary data------->PrepareData ----->Experiment--->CreateModel- TEST--->ModelDeployment----> Test -->  Deliver result to client ---->  Monitoring&Log   --------> DataBase
+________       _____________________      _____________     ____________    ___________          ________________              __________________________      _______________            __________
+
+6.2. Infra
+Storage: raw data in (redshift with data) after it we take only necessary data and transfer to csv file,
+after it push this file to google disc and used colab.research.google.com make prepare data, make experiment and create ML
+Compute: docker image in kubernetis
+My host will be in cloud
+6.3. Performance (Throughput, Latency)
+Will add metrics in monitoring system with size upload file and max CPU, RAM for machine in kubernetis (create alert if this metrics will be on border)
+6.4. Security
+Endpoint protection - Will created authorization by token, just will share token for my client
+6.5. Data privacy
+will remove input data after sending predict to client
+6.6. Monitoring & Alarms
+Will be monitoring input file size, machine min and max: CPU, RUM, Processes time,Service failures and restarts,own logs
+ GKE can respond to these metrics by automatically scaling
+ or adapting the cluster based on its current state, using mechanisms such as the Horizontal Pod Autoscaler.
+ file size will be calculate in python script and it to log
+
+
+6.7. Cost
+Currently system will be free for machine a google have this opportunity with truncate access
+15sp for beginner ML engineer
+
+6.8. Integration points
+first stage import data from redhift to csv and move csv to googleDisc then will prepare data > train model > approve result> send response with predicted data
+
+6.9. Risks & Uncertainties
+I haven't more experience with all CI/CD flow and ML
+7. Appendix
+7.1. Alternatives
+develop locally instered of google colab
+As positive - will be more quickly for now because we haven't large file for now
+As negative - will haven't opportunity to scale and have my local OS problem
+
+7.2. Experiment Results
+So about 20% of the customers have churned.
+Given such a small percentage of churned customers, i.e unbalanced target classification,
+our model performace should be evaluated based on a higher accuracy of "true positives" so that the bank can focus on those customers
+in order to retain them. We'll therefore use ROC AUC scores along with F1 scores instead of just accuracy scores. Most importantly,
+the "Recall" values will be the most significant part of our decision making in order to predict the maximum number of churned customers out of
+the total actually churned.
+7.3. Performance benchmarks
+Share any performance benchmarks you ran (e.g., throughput vs. latency vs. instance size/count).
+
+7.4. Milestones & Timeline
+Estimated timeline is a 2 weeks
+7.5. Glossary
+Define and link to business or technical terms..
+
+7.6. References
+Add references that you might have consulted for your methodology.
