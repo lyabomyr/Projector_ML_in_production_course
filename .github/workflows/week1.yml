@@ -57,19 +57,25 @@ jobs:
     
     - name: Deploy job to minikube
       run: |
-        kubectl create -f week-1/k8s-resources/job-app-ml.yaml 
-        kubectl wait --for=condition=complete --timeout=300s job/job-app-ml
+        kubectl create -f k8s-resources/job-app-ml.yaml 
+        kubectl wait --for=condition=complete --timeout=300s job/job-ml
         kubectl get pod
     - name: Deploy app to minikube
       run: |
-        # kubectl create -f week-1/k8s-resources/deployment-app-web.yaml
         kubectl get pod 
+        
+        
+        
+        
+        
+        
+  
+        
+        
         #docker docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
         #docker pull ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
         #docker run  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
-        
-        
-        
+    
         
         # to docker build used 'docker build --tag {name:version} [.patch (if it current folder just write '.')]'
         #to deploy docker image use command 'docker run -it --rm -p 80:80 --name {any name } {name:verson}'
