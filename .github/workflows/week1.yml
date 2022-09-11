@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'main'
-
 env:
   IMAGE_SIMLESERVER: server_ml
 
@@ -39,11 +38,27 @@ jobs:
     - name: docker deploy
       run: |
         echo 'will be add in futher implementation'
-        #docker docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
+        #docker docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
         #docker pull ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
         #docker run  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
         
+        
+        
+        
+        # to docker build used 'docker build --tag {name:version} [.patch (if it current folder just write '.')]'
+        #to deploy docker image use command 'docker run -it --rm -p 80:80 --name {any name } {name:verson}'
+        #to push image to git hub action should use commands: 
+        #docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
+        #docker tag {image:version}  {folderInDockerHub/image:version}
+        #docker push homework
 
+        #to download use:
+        #   docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
+        #   docker pull ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
+        #   docker run  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
+        #   to run with logs should add teg '-it' like this :' docker run -it  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest'
+        
+        
     
     
           
