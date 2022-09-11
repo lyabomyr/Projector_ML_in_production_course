@@ -3,9 +3,7 @@ name: ci_cd_week1
 on:
   push:
     branches:
-      - 'master'
-      -  'main'
-
+      - 'main'
 env:
   IMAGE_SIMLESERVER: server_ml
 
@@ -14,24 +12,47 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: action/checkout@v2
+        uses: actions/checkout@v2.4.0
 
       - name: login_to_docker_hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
-          username: 'lyabomyr'
-          password: 'lyabomyr1111'
+          username: ${{secrets.LOGIN_DOCKER_HUB}}
+          password: ${{secrets.PASSWORD_DOCKER_HUB}}
 
 
-    - name: set up docker build
-      uses: dicker/setup-buildx-action@v1
+      - name: set up docker build
+        uses: docker/setup-buildx-action@v2
 
-    - name: Build and push
-      uses: docker/build-push-action@2
-      with:
-        context: .
-        file:  Dockerfile
-        push: true
-        tags: lyabomyr/${{env.IMAGE_SIMLESERVER}}:latest
-        cache-from: type=registry, ref=lyabomyr/${{env.IMAGE_SIMLESERVER}}:buildcache
-        cache-to: type = registry, ref=lyabomyr/${{env.IMAGE_SIMLESERVER}}:buildcache,mode=max
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file:  Dockerfile
+          push: true
+          tags: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build_and_push-ml]
+    steps:
+    - name: docker deploy
+      run: |
+        echo 'will be add in futher implementation'
+        #docker docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
+        #docker pull ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
+        #docker run  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
+        
+        
+        
+        
+        # to docker build used 'docker build --tag {name:version} [.patch (if it current folder just write '.')]'
+        #to deploy docker image use command 'docker run -it --rm -p 80:80 --name {any name } {name:verson}'
+        #to push image to git hub action should use commands: 
+        #docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
+        #docker tag {image:version}  {folderInDockerHub/image:version}
+        #docker push homework
+        #to download use:
+        #   docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
+        #   docker pull ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
+        #   docker run  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
+        #   to run with logs should add teg '-it' like this :' docker run -it  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest'
