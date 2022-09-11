@@ -18,8 +18,8 @@ jobs:
       - name: login_to_docker_hub
         uses: docker/login-action@v2
         with:
-          username: lyabomyr
-          password: lyabomyr1111
+          username: ${{secrets.LOGIN_DOCKER_HUB}}
+          password: ${{secrets.PASSWORD_DOCKER_HUB}}
 
 
       - name: set up docker build
@@ -31,6 +31,12 @@ jobs:
           context: .
           file:  Dockerfile
           push: true
-          tags: lyabomyr/${{env.IMAGE_SIMLESERVER}}:latest
+          tags: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
+    
           #cache-from: type=registry, ref=lyabomyr/${{env.IMAGE_SIMLESERVER}}:buildcache
           #cache-to: type = registry, ref=lyabomyr/${{env.IMAGE_SIMLESERVER}}:buildcache,mode=max
+          
+
+  
+          
+          
