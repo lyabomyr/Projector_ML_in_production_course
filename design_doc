@@ -1,20 +1,35 @@
-ml-design-doc
+Bank Customer Churn Prediction
+
 1. Overview
-It is the dataset of a U.S. bank customer for getting the information that , this particular customer will leave bank or not.
-Analyze how to retain customers
+This model is needed to predict how the company's development path and marketing experiments affect customer churn. Based on this model, the quality of our customers will be assessed. (What is the estimated churn of our customers)
+
+
+
 2. Motivation
 This will help our marketing team analyze customer churn and try to retain a customer or prioritize customers properly. Decide which customers to pay more attention to.
+
+The marketing team will receive predictive data and draw conclusions about some benefits of the current marketing strategy. For example, a marketing program has attracted customers, but how reliable are these customers?
+
+
 3. Success metrics
-business goals: business goals: it got it which customer will be leave
+Percentage of customers are unreliable and may leave us
+The forecast must be measured in f1-score and must be at least 0.7  
+
 
 4. Requirements & Constraints
-Functional requirements:The marketing team will be able to determine which customers should be given more attention in order to keep them in the system.
+Functional requirements:The marketing team will be able to determine which customers should be given more attention in order to keep them in the system,
+Return percent calculation (churn/stable)
 Non-functional/technical:
-performance: must work without errors (handle errors and not stop the process, hide errors in logs),effort ML engineer is 5sp, Env cost = free, prediction data should be free,
-Security: prediction should be sending only to marketing team with password
-Constraints can come in the form of non-functional requirements (e.g., cost below $x a month, p99 latency < yms)
+performance: 
+must work without such issue like (avoid memory exceeded exception and time out issues) - The application must work stably without incidents also with large data
+effort ML engineer is 10 days,
+Env cost = cost below 100$ a month,
+Security: prediction should be sending only to marketing team with password.
+Time to  send predict result  not more than 60 min
 4.1 What's in-scope & out-of-scope?
-Will add in future
+Out-of-scope: Predict when this client leaves us with more probability (specify date and percentage of probability)
+In-scope: calculate (churn/stable), calculate total customer count and customer predict churn 
+
 5. Methodology
 5.1. Problem statement
 Here our main interest is to
@@ -22,58 +37,70 @@ get an understanding as to how the given attributes relate to the 'Exited' statu
 There are entries where a customer has exited but still maintains some balance and has a credit card with the bank, which seems conflicting.
 5.2. Data
 Will be use dataset of a U.S. bank customer
-The Data Frame 'df' has 10000 rows with 14 attributes: RowNumber,	CustomerId,	Surname,	CreditScore,	Geography,	Gender,	Age,	Tenure,	Balance,	NumOfProducts,	HasCrCard,	IsActiveMember,	EstimatedSalary,	Exited
-Out of all the features excluding rownumber, customerid and surname, we have:
+The Data Frame 'df' has 10000 rows with 14 attributes: RowNumber,  CustomerId,    Surname,   CreditScore,   Geography, Gender,    Age,   Tenure,    Balance,   NumOfProducts, HasCrCard, IsActiveMember,    EstimatedSalary,   Exited
+Out of all the features excluding rownumber, customerid and surname
 5 Numerical features
 5 Categorical features
 Input columns:
 CustomerId,Surname,Geography,Gender,Age,Tenure,Balance,NumOfProducts
 5.3. Techniques
-Prepare data: Removing the first three columns - "RowNumber", "CustomerId" and "Surname", as they are unnecessary for this case study.
-encode all the categorical features into 1s and 0s only.
-Geography column is therefore divided into its unique values and the same goes for the Gender column.
-will be use Random Forest Classifier and GridSearchCV for find best parametrs for model
+Analise_data:  regression analysis, factor analysis, cohort analysis, sentimental analysis
+Prepare_data: Data Standardization, prepare tabular to tree classifiers
+Models: tree-based classifiers 
+
+
+
 5.4. Experimentation & Validation
 will be check on X_test_data 25% from my input data
-will be use metrics like: precision, recall,  f1-score,
+will be use metrics like: precision, recall,  f1-score because very small precision or recall will result in lower overall score. Thus it helps balance the two metrics.
+
+
+If you choose your positive class as the one with fewer samples, F1-score can help balance the metric across positive/negative samples
+
 5.5. Human-in-the-loop
 will be excluded test users in time select data from DB
 6. Implementation
 6.1. High-level design
-_______        _____________________      _____________     ____________    ___________           _________________             ___________________________    _______________            __________
-DataBase ----->Select necessary data------->PrepareData ----->Experiment--->CreateModel- TEST--->ModelDeployment----> Test -->  Deliver result to client ---->  Monitoring&Log   --------> DataBase
-________       _____________________      _____________     ____________    ___________          ________________              __________________________      _______________            __________
 
-6.2. Infra
-Storage: raw data in (redshift with data) after it we take only necessary data and transfer to csv file,
-after it push this file to google disc and used colab.research.google.com make prepare data, make experiment and create ML
-Compute: docker image in kubernetis
-My host will be in cloud
+ 6.2. Infra
+Storage: raw data in (redshift with data)
+Prepare data : pandas, nampy
+Compute: scikit-learn
+Server: FastApi
+Deploy: docker, docker hub, CI/CD GitHub action, Kubernetes
+Monitoring: Grafana 
+Host: AWS
 6.3. Performance (Throughput, Latency)
-Will add metrics in monitoring system with size upload file and max CPU, RAM for machine in kubernetis (create alert if this metrics will be on border)
+Maintainability: Will add metrics in monitoring system with size upload file and max CPU, RAM for machine in kubernetis (create alert if this metrics will be on border),
+Optimize ML latency: reduce complexity, parallelize calculation
 6.4. Security
-Endpoint protection - Will created authorization by token, just will share token for my client
+Authorization functionality(create FastAPI authorization request and save token, next claim token in all request header)
 6.5. Data privacy
+Protect data in the cloud (Redshift)
 will remove input data after sending predict to client
 6.6. Monitoring & Alarms
 Will be monitoring input file size, machine min and max: CPU, RUM, Processes time,Service failures and restarts,own logs
- GKE can respond to these metrics by automatically scaling
- or adapting the cluster based on its current state, using mechanisms such as the Horizontal Pod Autoscaler.
- file size will be calculate in python script and it to log
+GKE can respond to these metrics by automatically scaling
+or adapting the cluster based on its current state, using mechanisms such as the Horizontal Pod Autoscaler.
+file size will be calculate in python script and it to log
 
 
 6.7. Cost
-Currently system will be free for machine a google have this opportunity with truncate access
+Kubernetes = will be free for us because The GKE free tier provides $74.40
+Graphan = $8/month 
+GitHub premium  = $44 per user/year
 15sp for beginner ML engineer
 
 6.8. Integration points
-first stage import data from redhift to csv and move csv to googleDisc then will prepare data > train model > approve result> send response with predicted data
+first stage import data from redhift to pandas then will prepare data > train model > approve result> send response with predicted data
 
 6.9. Risks & Uncertainties
-I haven't more experience with all CI/CD flow and ML
+ Limited CI/CD experiment in the team, so implementation of automation might take some time.
+ 
+
 7. Appendix
 7.1. Alternatives
-develop locally instered of google colab
+develop locally 
 As positive - will be more quickly for now because we haven't large file for now
 As negative - will haven't opportunity to scale and have my local OS problem
 
@@ -89,8 +116,6 @@ Share any performance benchmarks you ran (e.g., throughput vs. latency vs. insta
 
 7.4. Milestones & Timeline
 Estimated timeline is a 2 weeks
-7.5. Glossary
-Define and link to business or technical terms..
+MLOps stack:
 
-7.6. References
-Add references that you might have consulted for your methodology.
+
