@@ -38,7 +38,7 @@ jobs:
     steps:
     - name: docker deploy
       run: |
-        ls -a
+        docker pull ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
         docker run  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
         
 
