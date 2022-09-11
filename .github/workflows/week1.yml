@@ -6,7 +6,7 @@ on:
       - 'main'
 
 env:
-  IMAGE_SIMLESERVER =
+  IMAGE_SIMLESERVER: server_ml
 
 jobs:
   build_and_push-ml:
