@@ -3,7 +3,7 @@ name: ci_cd_week1
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
 
 env:
   IMAGE_SIMLESERVER =
