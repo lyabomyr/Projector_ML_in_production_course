@@ -32,9 +32,15 @@ jobs:
           file:  Dockerfile
           push: true
           tags: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build_and_push-ml]
+    steps:
+    - name: docker deploy
+      run: docker run -it --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
+
     
-          #cache-from: type=registry, ref=lyabomyr/${{env.IMAGE_SIMLESERVER}}:buildcache
-          #cache-to: type = registry, ref=lyabomyr/${{env.IMAGE_SIMLESERVER}}:buildcache,mode=max
+    
           
 
   
