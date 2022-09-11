@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'master'
 env:
   IMAGE_SIMLESERVER: server_ml
 
@@ -50,7 +51,7 @@ jobs:
         #to push image to git hub action should use commands: 
         #docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
         #docker tag {image:version}  {folderInDockerHub/image:version}
-        #docker push homework
+        #docker push {image:version}
         #to download use:
         #   docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
         #   docker pull ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
