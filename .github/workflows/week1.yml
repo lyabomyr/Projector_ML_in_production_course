@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      -  'main'
 
 env:
   IMAGE_SIMLESERVER: server_ml
@@ -13,13 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-      - uses: action/checkout@v2
+        uses: action/checkout@v2
 
       - name: login_to_docker_hub
-      - uses: docker/login-action@v1
-      with:
-        username: 'lyabomyr'
-        password: 'lyabomyr1111'
+        uses: docker/login-action@v1
+        with:
+          username: 'lyabomyr'
+          password: 'lyabomyr1111'
 
 
     - name: set up docker build
