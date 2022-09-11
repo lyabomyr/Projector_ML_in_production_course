@@ -37,7 +37,10 @@ jobs:
     needs: [build_and_push-ml]
     steps:
     - name: docker deploy
-      run: docker run -it --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
+      run: |
+        ls -a
+        docker run -it --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
+        
 
     
     
