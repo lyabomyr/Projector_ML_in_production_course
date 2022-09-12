@@ -103,7 +103,6 @@ first stage import data from redhift to pandas then will prepare data > train mo
 develop locally 
 As positive - will be more quickly for now because we haven't large file for now
 As negative - will haven't opportunity to scale and have my local OS problem
-
 7.2. Experiment Results
 So about 20% of the customers have churned.
 Given such a small percentage of churned customers, i.e unbalanced target classification,
