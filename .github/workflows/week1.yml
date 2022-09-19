@@ -72,9 +72,9 @@ jobs:
     steps:
       - name: Kubernetes KinD Cluster
         uses: container-tools/kind-action@v1
-      - name: Deploy job to minikube
-      - name: Try the cluster !
-        run: kubectl get pods -A
+     # - name: Deploy job to minikube
+     # - name: Try the cluster !
+     #   run: kubectl get pods -A
       #- name: deploy job kind  
       #  run: |
       #    kubectl create -f minio_service/minio_deploy.yml
