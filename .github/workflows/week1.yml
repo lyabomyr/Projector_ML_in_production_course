@@ -5,6 +5,7 @@ on:
     branches:
       - 'main'
       - 'master'
+      - 'week2'
 env:
   IMAGE_SIMLESERVER: server_ml
 
@@ -63,6 +64,15 @@ jobs:
     - name: Deploy app to minikube
       run: |
         kubectl get pod 
+        
+        
+    
+  create-cluster-kind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kubernetes KinD Cluster
+        uses: container-tools/kind-action@v1
+        
         
         
         
