@@ -84,7 +84,7 @@ jobs:
           kubectl get pod
       - name:  deploy app to kind and open port
         run: |
-          kubectl wait -n istio-system --for=condition=ready pod --all
+          kubectl wait --for=condition=ready pod -l app=minio 
           kubectl port-forward svc/minio-api 9000:9000
           kubectl get pod 
           
