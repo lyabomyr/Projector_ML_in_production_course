@@ -85,6 +85,7 @@ jobs:
       - name:  deploy app to kind and open port
         run: |
           kubectl port-forward svc/minio-api 9000:9000
+          kubectl wait deployment
           kubectl get pod 
           
         
