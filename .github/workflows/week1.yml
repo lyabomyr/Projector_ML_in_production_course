@@ -45,8 +45,8 @@ jobs:
   test-minio_client:
     runs-on: ubuntu-latest
     env:
-      AWS_ACCESS_KEY_ID: minioadmin
-      AWS_SECRET_ACCESS_KEY: minioadmin
+      AWS_ACCESS_KEY_ID: testkey
+      AWS_SECRET_ACCESS_KEY: testsecret
     services:
       minio:
         image: fclairamb/minio-github-actions
