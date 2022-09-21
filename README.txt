@@ -63,6 +63,16 @@ total labeling cost = 335$ and Should wait 7 days
 
 
 
+Deploy lakefs
+
+  -- create deploy yml file for docker
+
+  -- run command kubectl create -f lakefs-deploy.yaml
+
+forward port
+  -- kubectl port-forward svc/my-lakefs 5000:80
+
+
 
 
 
