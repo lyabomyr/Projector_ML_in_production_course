@@ -42,42 +42,6 @@ jobs:
         echo 'will be add in futher implementation'
     
 
-  test-minio_client:
-    runs-on: ubuntu-latest
-    env:
-      MINIO_ROOT_USER: testkey
-      MINIO_ROOT_PASSWORD: testsecret
-    services:
-      minio:
-        image: fclairamb/minio-github-actions
-        ports:
-          - 9000:9000
-    steps:
-      #- run: curl -v http://127.0.0.1:9000
-      - uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install flake8 pytest
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Lint with flake8
-        run: |
-          # stop the build if there are Python syntax errors or undefined names
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-      - name: Test with pytest
-        run: |
-          echo  pytest minio_service/test_client_minio.py 
-          
-      
-        
-        
-
   k8s_local_test_with_minikube:
 
     runs-on: ubuntu-latest
@@ -99,54 +63,3 @@ jobs:
     - name: Deploy app to minikube
       run: |
         kubectl get pod 
-        
-        
-
-  create-cluster-kind-with-minio:
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Create k8s Kind Cluster
-        uses: helm/kind-action@v1.3.0
-
-      - name: Try the cluster !
-        run: kubectl get pods -A
-      - name: deploy job kind
-        run: |
-          kubectl create -f minio_service/minio_deploy.yml
-          kubectl get pod
-      - name:  deploy app to kind and open port
-        run: |
-          kubectl wait --for=condition=ready pod -l app=minio 
-          kubectl port-forward svc/minio-api 9000:9000  & 
-          kubectl get pod 
-          
-        
-   
-        
-        
-        
-    
-        
-        
-  
-
-        # use '&' for cancel job
-        #docker docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
-        #docker pull ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
-        #docker run  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
-
-
-        # to docker build used 'docker build --tag {name:version} [.patch (if it current folder just write '.')]'
-        #to deploy docker image use command 'docker run -it --rm -p 80:80 --name {any name } {name:verson}'
-        #to push image to git hub action should use commands:
-        #docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
-        #docker tag {image:version}  {folderInDockerHub/image:version}
-        #docker push {image:version}
-        #to download use:
-        #   docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
-        #   docker pull ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
-        #   docker run  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
-        #   to run with logs should add teg '-it' like this :' docker run -it  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest'

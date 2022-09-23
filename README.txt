@@ -1,7 +1,7 @@
 For download minio image used command
----- docker pull minio/minio
+----  >  docker pull minio/minio
 And next run container  with available logs
-docker run   -p 9000:9000   -p 9001:9001   --name minio1   -e "MINIO_ROOT_USER=testkey"   -e "MINIO_ROOT_PASSWORD=testsecret" -v /home/dev/mdata:/data   quay.io/minio/minio server /data --console-address ":9001"
+> docker run   -p 9000:9000   -p 9001:9001   --name minio1   -e "MINIO_ROOT_USER=testkey"   -e "MINIO_ROOT_PASSWORD=testsecret" -v /home/dev/mdata:/data   quay.io/minio/minio server /data --console-address ":9001"
 
 
 
@@ -12,7 +12,7 @@ kind create cluster --name ml-in-production-course-week-2
 
 then running deploy job
 
-kubectl create -f minio_service/minio_deploy.yml
+kubectl create >  -f minio_service/minio_deploy.yml
 
 in this file we have 4 job 1. Create storage (PersistentVolumeClaim),
 2. Create Service for api communication
@@ -23,26 +23,32 @@ then do forwarding ports: <  kubectl port-forward svc/minio-api 9000:9000  >
 for UI kubectl port-forward svc/minio-ui 9001:9001
 
 
+About inference
+    time for one pricesing is a 0.4s
+    time for multi processing is a 3.02s
+
+
+
 init DVC
-pip install dvc
-git rm -r --cached 'Churn_Modelling.csv'
-git commit -m "stop tracking Churn_Modelling.csv"
-dvc add Churn_Modelling.csv
-dvc init --subdir
-git add Churn_Modelling.csv.dvc .gitignore
-dvc remote add -d minio   s3://testbucket
-dvc remote modify minio endpointurl http://0.0.0.0:9000
-git push
-export AWS_SECRET_ACCESS_KEY=testsecret
-export AWS_ACCESS_KEY_ID=testkey
-dvc push
+> pip install dvc
+> git rm -r --cached 'Churn_Modelling.csv'
+> git commit -m "stop tracking Churn_Modelling.csv"
+> dvc add Churn_Modelling.csv
+> dvc init --subdir
+> git add Churn_Modelling.csv.dvc .gitignore
+> dvc remote add -d minio   s3://testbucket
+> dvc remote modify minio endpointurl http://0.0.0.0:9000
+> git push
+> export AWS_SECRET_ACCESS_KEY=testsecret
+> export AWS_ACCESS_KEY_ID=testkey
+> dvc push
 
 
 
 
 labeling
-run docker container with label-studio
-docker run -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data heartexlabs/label-studio:latest
+> run docker container with label-studio
+> docker run -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data heartexlabs/label-studio:latest
 
 open http://0.0.0.0:8080/
 > select sign up and  create account
@@ -67,10 +73,10 @@ Deploy lakefs
 
   -- create deploy yml file for docker
 
-  -- run command kubectl create -f lakefs-deploy.yaml
+  -- run command > kubectl create -f lakefs-deploy.yaml
 
 forward port
-  -- kubectl port-forward svc/my-lakefs 5000:80
+  >  kubectl port-forward svc/my-lakefs 5000:80
 
 
 

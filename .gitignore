@@ -1,3 +1,5 @@
 env
 .idea
 /Churn_Modelling.csv
+__pycache__/
+
