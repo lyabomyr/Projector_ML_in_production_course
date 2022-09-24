@@ -1,6 +1,3 @@
-for build docker use
-> docker build --tag latest ./week1
-
 
 For download minio image used command
 ----  >  docker pull minio/minio
@@ -55,20 +52,41 @@ labeling
 > docker run -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data heartexlabs/label-studio:latest
 
 open http://0.0.0.0:8080/
-> select sign up and  create account
-> create new project
-> select data import and import csv file (IMDB Dataset)
-> select label template
-> select labels (remove template labels and select own)
-> go to list text
-> click on label
-> select relation world in text
-> repid last action 50 times
-> export file to csv
-one record cost 4 minutes  for analyze and select label
-we have 1000 records 1000 *4 = 4000 min = 67h
-1h = 5$
-total labeling cost = 335$ and Should wait 7 days
+>> select sign up and  create account
+>> create new project
+>> select data import and import csv file (IMDB Dataset)
+>> select label template
+>> select labels (remove template labels and select own)
+>> go to list text
+>> click on label
+>> select relation world in text
+>> repid last action 50 times
+>> export file to csv
+Necessary skills for employee which will do labeling:
+- Experience in watch movie
+- English upper intermediate
+- Good analytics skills
+Labeling:
+Should the movie description be classified by genre?
+genre: erotic, action, war, fantastic, horror, documental, Comedi, Children, western, drama
+For one description can be more than one genre
+>> If films are very sentimental (love, tragedy)  is drama
+>> if the film has intimate scenes that are erotic
+>> if a film about superheroes or magic or something unexciting is fantastic
+>> if a film about war is war
+>> if a film about comedy history is a comedy
+>> if a film about advantages for children is children
+>> if a film about a detailed historical moment is documental
+>> if a film about the wild west and cowboys is western
+>> if the film is about crimes, action, drug is action
+Corner cases:
+if description is empty click on skip
+if description haven't consistent information click on skip
+Costs:
+    one record cost 4 minutes  for analyze and select label
+    we have 1000 records 1000 *4 = 4000 min = 67h
+    1h = 5$
+    total labeling cost = 335$ and Should wait 7 days
 
 
 
