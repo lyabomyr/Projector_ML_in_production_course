@@ -1,4 +1,4 @@
-name: ci_cd_week1
+name: ci_cd_week2
 
 on:
   push:
