@@ -22,7 +22,7 @@ jobs:
         run: kubectl get pods -A
       - name: deploy job kind
         run: |
-          kubectl create -f minio_service/minio_deploy.yml
+          kubectl create -f week2/minio_service/minio_deploy.yml
           kubectl get pod
       - name:  deploy app to kind and open port
         run: |
