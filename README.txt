@@ -1,3 +1,7 @@
+for build docker use
+> docker build --tag latest ./week1
+
+
 For download minio image used command
 ----  >  docker pull minio/minio
 And next run container  with available logs
@@ -76,7 +80,7 @@ Deploy lakefs
   -- run command > kubectl create -f lakefs-deploy.yaml
 
 forward port
-  >  kubectl port-forward svc/my-lakefs 5000:80
+  --> kubectl port-forward svc/my-lakefs 5000:80
 
 
 
