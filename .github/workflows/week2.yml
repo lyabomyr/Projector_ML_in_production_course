@@ -30,7 +30,7 @@ jobs:
           kubectl port-forward svc/minio-api 9000:9000  & 
           kubectl get pod 
           
- test-minio_client:
+  test-minio_client:
     runs-on: ubuntu-latest
     env:
       MINIO_ROOT_USER: testkey
