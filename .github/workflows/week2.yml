@@ -1,0 +1,66 @@
+name: ci_cd_week2
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'master'
+      - 'week2'
+env:
+  IMAGE_SIMLESERVER: server_ml
+jobs:
+  create-cluster-kind-with-minio:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1.3.0
+
+      - name: Try the cluster !
+        run: kubectl get pods -A
+      - name: deploy job kind
+        run: |
+          kubectl create -f week2/minio_service/minio_deploy.yml
+          kubectl get pod
+      - name:  deploy app to kind and open port
+        run: |
+          kubectl wait --for=condition=ready pod -l app=minio 
+          kubectl port-forward svc/minio-api 9000:9000  & 
+          kubectl get pod 
+          
+  test-minio_client:
+    runs-on: ubuntu-latest
+    env:
+      MINIO_ROOT_USER: testkey
+      MINIO_ROOT_PASSWORD: testsecret
+    services:
+      minio:
+        image: fclairamb/minio-github-actions
+        ports:
+          - 9000:9000
+    steps:
+      #- run: curl -v http://127.0.0.1:9000
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Test with pytest
+        run: |
+          echo  pytest minio_service/test_client_minio.py 
+          
+
+

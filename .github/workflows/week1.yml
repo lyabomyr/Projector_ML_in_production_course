@@ -5,6 +5,7 @@ on:
     branches:
       - 'main'
       - 'master'
+      - 'week2'
 env:
   IMAGE_SIMLESERVER: server_ml
 
@@ -39,9 +40,8 @@ jobs:
     - name: docker deploy
       run: |
         echo 'will be add in futher implementation'
-        
-        
-        
+    
+
   k8s_local_test_with_minikube:
 
     runs-on: ubuntu-latest
@@ -54,37 +54,12 @@ jobs:
 
     - name: Try the cluster !
       run: kubectl get pods -A
-    
+
     - name: Deploy job to minikube
       run: |
-        kubectl create -f k8s-resources/job-ml.yaml 
+        kubectl create -f week1/k8s-resources/job-ml.yaml 
         #kubectl wait --for=condition=complete --timeout=300s job/job-ml
         kubectl get pod
     - name: Deploy app to minikube
       run: |
         kubectl get pod 
-        
-        
-        
-        
-        
-        
-  
-        
-        
-        #docker docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
-        #docker pull ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
-        #docker run  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
-    
-        
-        # to docker build used 'docker build --tag {name:version} [.patch (if it current folder just write '.')]'
-        #to deploy docker image use command 'docker run -it --rm -p 80:80 --name {any name } {name:verson}'
-        #to push image to git hub action should use commands: 
-        #docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
-        #docker tag {image:version}  {folderInDockerHub/image:version}
-        #docker push {image:version}
-        #to download use:
-        #   docker login -u ${{secrets.LOGIN_DOCKER_HUB}} -p  ${{secrets.PASSWORD_DOCKER_HUB}}
-        #   docker pull ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
-        #   docker run  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest
-        #   to run with logs should add teg '-it' like this :' docker run -it  --rm -p 8080:8080 --name app-web-Ml-run ${{env.IMAGE_SIMLESERVER}}:latest'
