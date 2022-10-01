@@ -13,7 +13,7 @@ kind create cluster --name ml-in-production-course-week-2
 
 then running deploy job
 
-kubectl create >  -f minio_service/minio_deploy.yml
+> kubectl create -f minio_service/minio_deploy.yml
 
 in this file we have 4 job 1. Create storage (PersistentVolumeClaim),
 2. Create Service for api communication
@@ -87,10 +87,6 @@ Costs:
     we have 1000 records 1000 *4 = 4000 min = 67h
     1h = 5$
     total labeling cost = 335$ and Should wait 7 days
-
-
-
-
 Deploy lakefs
 
   -- create deploy yml file for docker
