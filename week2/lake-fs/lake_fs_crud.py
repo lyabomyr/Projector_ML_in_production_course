@@ -15,6 +15,8 @@ path_to_datafile = os.getcwd().replace('/lake-fs', r'/Churn_Modelling.csv')
 configuration = lakefs_client.Configuration()
 configuration.username = 'AKIAJTID3B3274LO7NZQ'
 configuration.password = '8leZ0GQKcgDPEZ8DD3DP6RUTUF4E6ACMfHLDzE9l'
+configuration.username = 'testuser'
+configuration.password = 'testpass'
 configuration.host = 'http://localhost:8000'
 client = LakeFSClient(configuration)
 

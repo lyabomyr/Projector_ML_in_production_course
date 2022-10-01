@@ -7,8 +7,10 @@ from tqdm import tqdm
 from concurrent.futures import wait
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-
 path_to_train_file = os.path.abspath("Churn_Modelling.csv").replace('week2/inference/', '')
+from sklearn.model_selection import train_test_split, GridSearchCV
+path_to_train_file = os.path.abspath("Churn_Modelling.csv").replace('inference/', '')
+
 
 
 def prepare_data(path_to_file=path_to_train_file):
@@ -28,7 +30,10 @@ def prepare_data(path_to_file=path_to_train_file):
 def predict(predict_data, prepared_data=prepare_data()):
     clf_rf = RandomForestClassifier(max_depth=11, min_samples_leaf=2, min_samples_split=8,
                                     n_estimators=30, n_jobs=-1, random_state=0)
+
     predict_data = clf_rf.fit(prepared_data[0]['x'], prepared_data[0]['y'])
+
+    clf_rf.fit(prepared_data[0]['x'], prepared_data[0]['y'])
     return clf_rf.predict(predict_data)
 
 
@@ -60,10 +65,11 @@ def run_inference_process_pool(x_test=prepare_data()[1]['x'], max_workers: int =
 
 
 if __name__ == "__main__":
-    print(predict())
-
-    #
     # start_time = time.time()
     # print('run inference: ',run_inference(), f'total process time {time.time() - start_time}')
     # start_time = time.time()
     # print('run_inference_process_pool: ', run_inference_process_pool(), f'total process time {time.time() - start_time}')
+    start_time = time.time()
+    print('run inference: ',run_inference(), f'total process time {time.time() - start_time}')
+    start_time = time.time()
+    print('run_inference_process_pool: ', run_inference_process_pool(), f'total process time {time.time() - start_time}')
