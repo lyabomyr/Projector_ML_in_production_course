@@ -1,0 +1,24 @@
+modcard:
+  name: Bank Customer Churn Prediction
+  owner_name: DS engineer
+  owner_contact: lyabomy@gmail.com
+  reference1: https://www.kaggle.com/datasets/shantanudhakadd/bank-customer-churn-prediction/code
+  reference2: https://learn.microsoft.com/en-us/dynamics365/industry/financial-services/churn-prediction
+  risk_name: The client may leave for his own reasons that cannot be predicted
+  risk_mitigation_strategy: need to increase recall
+  limitation: Determination of client reliability
+  consider_use_cases: Determination of client reliability
+  consider_user1: marketing team
+  consider_user2: analytic team
+  consider_user3: manager team
+  model_card_html_name: card.html
+  model_card_overview: Based on this model, the quality of our customers will be assessed. (What is the estimated churn of our customers) image statistic
+param:
+  max_depth: 11
+  min_samples_leaf: 3
+  min_samples_split: 2
+  n_estimators: 30
+  random_state: 42
+
+patch:
+  train_file: ../../Churn_Modelling.csv
