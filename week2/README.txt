@@ -87,6 +87,7 @@ Costs:
     we have 1000 records 1000 *4 = 4000 min = 67h
     1h = 5$
     total labeling cost = 335$ and Should wait 7 days
+
 Deploy lakefs
 
   -- create deploy yml file for docker

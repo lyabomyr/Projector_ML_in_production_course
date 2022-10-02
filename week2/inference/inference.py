@@ -60,10 +60,8 @@ def run_inference_process_pool(x_test=prepare_data()[1]['x'], max_workers: int =
 
 
 if __name__ == "__main__":
-    print(predict())
-
-    #
-    # start_time = time.time()
-    # print('run inference: ',run_inference(), f'total process time {time.time() - start_time}')
-    # start_time = time.time()
-    # print('run_inference_process_pool: ', run_inference_process_pool(), f'total process time {time.time() - start_time}')
+   
+    start_time = time.time()
+    print('run inference: ',run_inference(), f'total process time {time.time() - start_time}')
+    start_time = time.time()
+    print('run_inference_process_pool: ', run_inference_process_pool(), f'total process time {time.time() - start_time}')
