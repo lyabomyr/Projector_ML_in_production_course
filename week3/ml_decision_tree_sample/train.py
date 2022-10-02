@@ -1,11 +1,14 @@
+import hydra
+from omegaconf import DictConfig
 import sklearn
 import wandb
 from sklearn.ensemble import RandomForestClassifier
 from prepare_data import prepare_data
-from config import param_range
 
-
-def classifier_visualizations(prepared_data=prepare_data(), parange=param_range):
+@hydra.main(version_base=None, config_path="conf", config_name="train")
+def classifier_visualizations(cfg: DictConfig):
+    prepared_data = prepare_data(cfg.path.train_file)
+    parange = cfg.range_parametrs.common_range
     wandb.init(project="ml_week3", entity="liunomyr")
     wandb.define_metric("train/step")
     X_train = prepared_data[0]['x']
@@ -31,6 +34,3 @@ def classifier_visualizations(prepared_data=prepare_data(), parange=param_range)
                                            "min_samples_split": min_samples_split,
                                            "n_estimators": n_estimators}
                         })
-
-
-classifier_visualizations()
