@@ -1,7 +1,6 @@
 absl-py==1.0.0
 antlr4-python3-runtime==4.9.3
 anyio==3.6.1
-apache-beam==2.41.0
 argon2-cffi==21.3.0
 argon2-cffi-bindings==21.2.0
 astunparse==1.6.3
