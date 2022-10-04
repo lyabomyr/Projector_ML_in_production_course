@@ -9,7 +9,7 @@ env:
   IMAGE_SIMLESERVER: run_test_docker
 
 jobs:
-  build_and_push-ml:
+  build_and_push-project_test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
