@@ -26,6 +26,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: week3/test:latest
+          tags: week3/traintest:latest
 
 
