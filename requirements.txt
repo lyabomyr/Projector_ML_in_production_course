@@ -1,5 +1,4 @@
 absl-py==1.0.0
-altair==4.2.0
 antlr4-python3-runtime==4.9.3
 anyio==3.6.1
 apache-beam==2.41.0
