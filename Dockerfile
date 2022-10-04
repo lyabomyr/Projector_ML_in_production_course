@@ -10,4 +10,3 @@ COPY week1/simpleserver.py /ml_project/simpleserver.py
 
 CMD ["uvicorn", "simpleserver:app","--proxy-headers", "--host", "0.0.0.0", "--port", "8080"]
 #CMD ["python", "./simpleserver.py"]
-
