@@ -3,8 +3,8 @@ LABEL maintainer="lyabomyr@gmail.com"
 RUN pip install --upgrade pip
 
 WORKDIR /ml_decission_tree
-COPY /ml_decision_tree_sample /ml_decission_tree/ml_decision_tree_sample
-COPY requirements.txt /ml_decission_tree/requirements.txt
+COPY week3/ml_decision_tree_sample /ml_decission_tree/ml_decision_tree_sample
+COPY week3/requirements.txt /ml_decission_tree/requirements.txt
 COPY Churn_Modelling.csv /ml_decission_tree/Churn_Modelling.csv
 
 RUN pip install model-card-toolkit
