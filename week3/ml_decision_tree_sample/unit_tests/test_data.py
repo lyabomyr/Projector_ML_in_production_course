@@ -4,15 +4,15 @@ import pytest
 
 @pytest.fixture
 def read_csv():
-    return pd.read_csv('../../../Churn_Modelling.csv')
+    return pd.read_csv('../../Churn_Modelling.csv')
 
 @pytest.fixture
 def init_ge_df(read_csv):
     return PandasDataset(read_csv)
 
 
-def test_data_shape():
-    df_train = pd.read_csv('../../../Churn_Modelling.csv')
+def test_data_shape(read_csv):
+    df_train = read_csv
     assert df_train.shape[0] == 10000, 'data rows !=10000'
     assert df_train.shape[1] == 14, 'data columns != 14'
 
