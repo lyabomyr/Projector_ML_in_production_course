@@ -20,7 +20,8 @@ def test_data_order(init_ge_df):
     df = init_ge_df
     assert df.expect_column_values_to_be_unique(column="RowNumber")['success'], 'RowNumber is not unique'
     assert df.expect_column_values_to_be_unique(column="CustomerId")['success'], 'CustomerId is not unique'
-    assert df.expect_column_values_to_be_of_type(column="Exited", type_="int")['success'], 'type for Exited column is not int Exited'
+    assert df.expect_column_values_to_be_of_type(column="Exited", type_="int")['success'], 'type for Exited column is ' \
+                                                                                           'not int Exited '
     assert df.expect_column_values_to_not_be_null(column="Exited")['success'], 'column Exited have value like null'
 
 def test_data_content(init_ge_df):
