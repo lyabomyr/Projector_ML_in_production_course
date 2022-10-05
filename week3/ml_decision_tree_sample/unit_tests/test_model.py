@@ -11,8 +11,9 @@ def test_overfit_batch():
     clf = model_for_predict(max_depth=11, min_samples_leaf=3, min_samples_split=2,
                             n_estimators=30,
                             random_state=42, patch_to_file='short_test_data.csv')
-    assert (clf.predict(prepare_data('short_test_data.csv')[0]['x']) == prepare_data('short_test_data.csv')[0][
-        'y'].to_numpy()).all(), 'model not work'
+    predicted_y = clf.predict(prepare_data('short_test_data.csv')[0]['x'])
+    test_y = prepare_data('short_test_data.csv')[0]['y'].to_numpy()
+    assert (predicted_y == test_y).all(), 'model not work'
 
 
 def test_model_card_to_completion():
