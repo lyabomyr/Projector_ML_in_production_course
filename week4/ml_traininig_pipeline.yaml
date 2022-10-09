@@ -1,0 +1,81 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: ml-retraining-pipeline-
+  annotations: {pipelines.kubeflow.org/kfp_sdk_version: 1.8.14, pipelines.kubeflow.org/pipeline_compilation_time: '2022-10-09T02:50:25.687226',
+    pipelines.kubeflow.org/pipeline_spec: '{"description": "ml_retraining_pipeline",
+      "name": "ml_retraining_pipeline"}'}
+  labels: {pipelines.kubeflow.org/kfp_sdk_version: 1.8.14}
+spec:
+  entrypoint: ml-retraining-pipeline
+  templates:
+  - name: load-data
+    container:
+      command: [python3, ml_decision_tree_sample/prepare_data.py, Churn_Modelling.csv,
+        /tmp/]
+      image: lyabomyr/kfp_train:latest
+    outputs:
+      artifacts:
+      - {name: load-data-X_test, path: /tmp/X_test.csv}
+      - {name: load-data-X_train, path: /tmp/X_train.csv}
+      - {name: load-data-y_test, path: /tmp/y_test.csv}
+      - {name: load-data-y_train, path: /tmp/y_train.csv}
+    metadata:
+      labels:
+        pipelines.kubeflow.org/kfp_sdk_version: 1.8.14
+        pipelines.kubeflow.org/pipeline-sdk-type: kfp
+        pipelines.kubeflow.org/enable_caching: "true"
+      annotations: {pipelines.kubeflow.org/max_cache_staleness: P0D}
+  - name: ml-retraining-pipeline
+    dag:
+      tasks:
+      - {name: load-data, template: load-data}
+      - name: train-model
+        template: train-model
+        dependencies: [load-data]
+        arguments:
+          artifacts:
+          - {name: load-data-X_train, from: '{{tasks.load-data.outputs.artifacts.load-data-X_train}}'}
+          - {name: load-data-y_train, from: '{{tasks.load-data.outputs.artifacts.load-data-y_train}}'}
+      - name: upload-model
+        template: upload-model
+        dependencies: [train-model]
+        arguments:
+          artifacts:
+          - {name: train-model-model, from: '{{tasks.train-model.outputs.artifacts.train-model-model}}'}
+  - name: train-model
+    container:
+      command: [python3, ml_decision_tree_sample/train.py, /tmp/X_train.csv, /tmp/y_train.csv,
+        /tmp/]
+      image: lyabomyr/kfp_train:latest
+    inputs:
+      artifacts:
+      - {name: load-data-X_train, path: /tmp/X_train.csv}
+      - {name: load-data-y_train, path: /tmp/y_train.csv}
+    outputs:
+      artifacts:
+      - {name: train-model-model, path: /tmp/model_random_forest.pkl}
+    metadata:
+      labels:
+        pipelines.kubeflow.org/kfp_sdk_version: 1.8.14
+        pipelines.kubeflow.org/pipeline-sdk-type: kfp
+        pipelines.kubeflow.org/enable_caching: "true"
+  - name: upload-model
+    container:
+      command: [python3, ml_decision_tree_sample/load_model.py, upload, model_random_forest.pkl,
+        /tmp/]
+      env:
+      - {name: WANDB_PROJECT, value: liunomyr}
+      - {name: WANDB_API_KEY, value: 0a14fd83112d8258ad9cb780edb9e9932241f5fc}
+      image: lyabomyr/kfp_train:latest
+    inputs:
+      artifacts:
+      - {name: train-model-model, path: /tmp/model_random_forest.pkl}
+    metadata:
+      labels:
+        pipelines.kubeflow.org/kfp_sdk_version: 1.8.14
+        pipelines.kubeflow.org/pipeline-sdk-type: kfp
+        pipelines.kubeflow.org/enable_caching: "true"
+  arguments:
+    parameters: []
+  serviceAccountName: pipeline-runner
