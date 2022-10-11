@@ -14,7 +14,7 @@ def generate_model_card(max_depth, min_samples_leaf, min_samples_split, n_estima
                         risk_name,risk_mitigation_strategy, limitation,consider_use_cases,
                         consider_user1,consider_user2, consider_user3,model_card_html_name):
     X_test = prepare_data(patch_to_file)[1]['x']
-    model_card_output_path = f'{os.path}'.replace(os.path.basename(sys.argv[0]), '')
+    model_card_output_path =  os.getcwd()
     mct = mctlib.ModelCardToolkit(model_card_output_path)
     model_card = mct.scaffold_assets()
     model_card.model_details.name = name
