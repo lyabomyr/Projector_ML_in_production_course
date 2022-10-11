@@ -32,6 +32,11 @@ jobs:
           file:  week3/Dockerfile
           push: true
           tags: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
+      - name: Docker Run Action
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
+      
           
           
           
