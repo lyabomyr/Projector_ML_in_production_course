@@ -5,6 +5,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname('ml_decision_tre
 from predictor import model_for_predict
 from prepare_data import prepare_data
 from generator_model_card import generate_model_card
+model_file_html_name = 'card.html'
 
 
 def test_overfit_batch():
@@ -31,8 +32,8 @@ def test_model_card_to_completion():
                         consider_user1='test9',
                         consider_user2='test10',
                         consider_user3='test11',
-                        model_card_html_name='card.html'
+                        model_card_html_name=model_file_html_name
                         )
-    assert os.path.exists('card.html'), 'card.html are not created '
-    os.remove('card.html')
+    assert os.path.exists(model_file_html_name), f'{model_file_html_name} are not created '
+    os.remove(model_file_html_name)
 
