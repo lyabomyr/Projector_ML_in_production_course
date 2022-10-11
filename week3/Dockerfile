@@ -10,5 +10,6 @@ COPY Churn_Modelling.csv /ml_decission_tree/Churn_Modelling.csv
 RUN pip install model-card-toolkit
 RUN pip install --no-cache-dir --upgrade -r  /ml_decission_tree/requirements.txt
 RUN cd ml_decision_tree_sample/unit_tests/; pytest
+CMD ["cd", "ml_decision_tree_sample/unit_tests/;", "pytest"]
 
 
