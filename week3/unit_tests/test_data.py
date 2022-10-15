@@ -1,10 +1,11 @@
 from great_expectations.dataset.pandas_dataset import PandasDataset
+from pytestconf import conf_test
 import pandas as pd
 import pytest
 
 @pytest.fixture
 def read_csv():
-    return pd.read_csv('../../Churn_Modelling.csv')
+    return pd.read_csv(conf_test.real_data_file)
 
 @pytest.fixture
 def init_ge_df(read_csv):

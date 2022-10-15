@@ -11,6 +11,6 @@ train:
 model_card_generator:
 	cd ml_decision_tree_sample/; python3 python3 generator_model_card.py
 build_test:
-	docker build -f Dockerfile -t test_project:latest
+	docker build -f Dockerfile -t test_project:latest .
 run_dev: build_test
 	docker run -it -v ${PWD}:/main test_project:latest /bin/bash
