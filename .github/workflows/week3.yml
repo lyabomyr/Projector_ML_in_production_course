@@ -22,16 +22,16 @@ jobs:
           password: ${{secrets.PASSWORD_DOCKER_HUB}}
 
 
-#       - name: set up docker build
-#         uses: docker/setup-buildx-action@v2
+      - name: set up docker build
+        uses: docker/setup-buildx-action@v2
 
-#       - name: Build and push
-#         uses: docker/build-push-action@v3
-#         with:
-#           context: .
-#           file:  week3/Dockerfile
-#           push: true
-#           tags: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file:  week3/Dockerfile
+          push: true
+          tags: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
       - name: Docker Run Action
         uses: addnab/docker-run-action@v3
         with:
