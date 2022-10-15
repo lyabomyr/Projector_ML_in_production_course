@@ -1,0 +1,5 @@
+path:
+  train_file: Churn_Modelling.csv
+range_parametrs:
+  common_range: 100
+
