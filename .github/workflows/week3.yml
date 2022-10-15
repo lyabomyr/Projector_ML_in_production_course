@@ -36,6 +36,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
+          options: -it
       
           
           
