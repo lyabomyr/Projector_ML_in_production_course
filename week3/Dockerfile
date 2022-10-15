@@ -11,7 +11,7 @@ COPY week3/short_test_data.csv /short_test_data.csv
 COPY week3/unit_tests /unit_tests
 
 ENV PYTHONPATH="$PWD/ml_decision_tree_sample"
-RUN pytest unit_tests/
+# RUN pytest unit_tests/
 CMD ["pytest", "unit_tests/"]
 
 
