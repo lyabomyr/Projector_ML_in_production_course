@@ -37,7 +37,7 @@ jobs:
         with:
           image: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
           run: |
-            echo "Running Script"
+            echo image
       
           
           
