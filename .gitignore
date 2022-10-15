@@ -2,4 +2,11 @@ env
 .idea
 /Churn_Modelling.csv
 __pycache__/
+kubectl
+week4/env
+week4/airflow-home/logs
+week4/airflow-home/airflow-webserver.pid
+week4/airflow-home/airflow.db
+week4/airflow-home/standalone_admin_password.txt
+week4/airflow-home/webserver_config.py
 

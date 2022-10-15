@@ -4,9 +4,9 @@ on:
     branches:
       - 'main'
       - 'master'
-      - 'week_3'
+      - 'week4'
 env:
-  IMAGE_SIMLESERVER: run_test_docker
+  IMAGE_SIMLESERVER: docker_file_for_pipelines
 
 jobs:
   build_and_push-project_test:
@@ -29,13 +29,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file:  week3/Dockerfile
+          file:  week4/Dockerfile
           push: true
           tags: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
-
-      - name: Docker Run Action
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
-          run: |
-            pytest unit_tests/
