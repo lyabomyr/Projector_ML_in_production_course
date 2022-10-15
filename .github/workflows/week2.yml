@@ -61,6 +61,3 @@ jobs:
       - name: Test with pytest
         run: |
           echo  pytest minio_service/test_client_minio.py 
-          
-
-
