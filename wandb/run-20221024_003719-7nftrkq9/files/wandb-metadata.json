@@ -1,0 +1,22 @@
+{
+    "os": "Linux-5.13.0-28-generic-x86_64-with-glibc2.29",
+    "python": "3.8.10",
+    "heartbeatAt": "2022-10-23T21:37:20.726934",
+    "startedAt": "2022-10-23T21:37:19.921325",
+    "docker": null,
+    "cpu_count": 8,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "week5/serving/seldon_api.py",
+    "codePath": "week5/serving/seldon_api.py",
+    "git": {
+        "remote": "https://github.com/lyabomyr/Projector_ML_in_production_course.git",
+        "commit": "e29ee18c292f5024fc012fc08bc4eb09e2a0d924"
+    },
+    "email": "lyabomyr@gmail.com",
+    "root": "/home/lubomir/Desktop/Projector_ML_in_production_course",
+    "host": "lubomir-nb",
+    "username": "lubomir",
+    "executable": "/usr/bin/python3"
+}
