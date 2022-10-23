@@ -62,7 +62,7 @@ async def predict_exel_file(file: UploadFile = File(...)):
         model_loader('download', model_file_name)
         output_df = model_for_predict(prepare_data_for_predict(input_df), model_file_name)
         input_df['Exited'] = output_df
-        result = input_df.drop('Unnamed: 0', axis=1)
+        result = input_df
         clean_all(model_file_name)
         return return_df_like_csv_file_in_response(result)
 
