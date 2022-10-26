@@ -1,5 +1,5 @@
 model_file_name = 'model_random_forest.pkl'
-
+remove_dir_name = 'wandb'
 seldon_host = "http://localhost"
 seldon_port = "7777"
 seldon_endpoint = "/seldon/default/churnpredict/api/v1.0/predictions"

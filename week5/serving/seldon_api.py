@@ -17,7 +17,6 @@ logger = logging.getLogger()
 class SeldonAPI:
     def __init__(self):
         model_loader('download', model_file_name)
-        print(model_file_name)
 
     def predict(self, X: Union[np.ndarray, List, str, bytes, Dict], names: Optional[List[str]] = None,
                 meta: Optional[Dict] = None):

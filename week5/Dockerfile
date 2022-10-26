@@ -1,4 +1,4 @@
-FROM python:latest as base
+FROM python:3.10.8 as base
 LABEL maintainer="lyabomyr@gmail.com"
 RUN pip install --upgrade pip
 
@@ -16,6 +16,7 @@ COPY week5/unit_tests /ml_project/unit_tests
 COPY Churn_Modelling.csv /ml_project/Churn_Modelling.csv
 COPY week5/test_churn_modelling.csv /ml_project/test_churn_modelling.csv
 
+RUN echo python --version
 RUN echo $PYTHONPATH
 RUN pytest unit_tests/test_fastapi.py
 CMD [ "bash" ]

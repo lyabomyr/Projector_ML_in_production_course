@@ -1,4 +1,6 @@
 import os
+import shutil
+from serving.config import remove_dir_name
 
 
 def remove_model_from_local_directory(model_name: str):
@@ -10,10 +12,10 @@ def remove_model_from_local_directory(model_name: str):
 
 
 def remove_wand_local_directory():
-    try:
-        os.system("rm -rf wandb/")
-    except:
-        pass
+    if os.path.isdir(remove_dir_name):
+        shutil.rmtree(remove_dir_name)
+    else:
+        print(f'{remove_dir_name} directory does not exist!')
 
 
 def clean_all(model_name: str):

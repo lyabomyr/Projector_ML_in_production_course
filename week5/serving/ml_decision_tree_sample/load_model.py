@@ -11,7 +11,3 @@ def model_loader(mode: str, model_name: str):
             artifact = run.use_artifact(f'{model_name}:latest', type="model")
             artifact = artifact.get_path(model_name)
             artifact.download(root='.')
-
-
-
-# model_loader('download','model_random_forest')
