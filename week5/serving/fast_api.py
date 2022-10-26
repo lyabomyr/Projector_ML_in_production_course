@@ -10,6 +10,8 @@ from serving.ml_decision_tree_sample.train import grid_train_model
 from serving.ml_decision_tree_sample.cleaner import clean_all
 from serving.config import model_file_name
 import uvicorn
+from pydantic import BaseModel
+
 
 
 
@@ -30,18 +32,20 @@ def return_df_like_csv_file_in_response(df: pd.DataFrame):
     response.headers["Content-Disposition"] = "attachment; filename=predict.csv"
     return response
 
+class Message(BaseModel):
+    message: str
 
 app = FastAPI()
 
 
-@app.get("/")
+@app.get("/",  responses={404: {"model": Message}})
 def read_root():
     return {"Hello": "please add \'/docs\' to ur url and u will be transferred to swagger page with list of request "
                      "example url http://127.0.0.1:8000/docs"}
 
 
 @app.post("/train_model_and_push_to_wandb/")
-async def train_model_and_push_to_wandb(file: UploadFile = File(...)):
+def train_model_and_push_to_wandb(file: UploadFile = File(...)):
     if not file:
         return {"message": "No upload file sent"}
     else:
@@ -54,7 +58,7 @@ async def train_model_and_push_to_wandb(file: UploadFile = File(...)):
 
 
 @app.post("/batch_predict_csv_file/")
-async def predict_exel_file(file: UploadFile = File(...)):
+def predict_exel_file(file: UploadFile = File(...)):
     if not file:
         return {"message": "No upload file sent"}
     else:
