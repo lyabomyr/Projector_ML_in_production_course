@@ -23,6 +23,3 @@ benchmark_port_forwarding_test:
 	pytest week5/unit_tests/test_benchmark-forwardpass.py
 benchmark_optimize_inference:
 	pytest week5/unit_tests/test_benchmark-forwardpass.py
-
-
-

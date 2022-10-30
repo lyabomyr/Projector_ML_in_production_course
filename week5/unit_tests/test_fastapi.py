@@ -37,4 +37,3 @@ def test_predict():
     assert response.status_code == 200
     assert df.shape[0] >= 2, 'data is empty'
     assert df.shape[1] == 14, 'data columns != 14'
-

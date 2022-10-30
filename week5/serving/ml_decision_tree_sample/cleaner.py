@@ -1,6 +1,5 @@
 import os
 import shutil
-import logging
 from serving.config import remove_dir_name
 
 
