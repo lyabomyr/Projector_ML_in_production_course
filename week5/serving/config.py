@@ -9,3 +9,5 @@ headers = {
     "accept": "application/json",
     "Content-Type": "application/json"
 }
+train_file = 'Churn_Modelling.csv'
+test_file_for_predict = 'test_churn_modelling.csv'

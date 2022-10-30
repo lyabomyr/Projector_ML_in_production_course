@@ -6,6 +6,7 @@ WORKDIR /ml_project
 COPY week5/requirements.txt /ml_project/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r  /ml_project/requirements.txt
 
+
 ENV WANDB_PROJECT="liunomyr"
 ENV WANDB_API_KEY="0a14fd83112d8258ad9cb780edb9e9932241f5fc"
 
@@ -44,5 +45,6 @@ RUN chmod 777 /.cache
 RUN mkdir /.config
 RUN chmod 777 /.config
 ENV PERSISTENCE 0
+
 
 CMD exec seldon-core-microservice $MODEL_NAME --service-type $SERVICE_TYPE --persistence $PERSISTENCE
