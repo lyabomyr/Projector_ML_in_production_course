@@ -9,9 +9,6 @@ def test_connection():
 
 def test_response_body():
     r = requests.post(uri, json=request_body, headers=headers)
-    print(r.json().keys())
-    # print(r.keys())
-    print(r.json()["jsonData"])
     assert "meta" in r.json().keys()
     assert "jsonData" in r.json().keys()
 
