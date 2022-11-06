@@ -1,3 +1,5 @@
+import os
+
 model_file_name = 'model_random_forest.pkl'
 remove_dir_name = 'wandb'
 seldon_host = "http://localhost"
@@ -11,3 +13,15 @@ headers = {
 }
 train_file = 'Churn_Modelling.csv'
 test_file_for_predict = 'test_churn_modelling.csv'
+
+class SeldonClient: 
+    DOMAIN = "localhost"
+    PORT = "8000"
+    MODEL = "churnpredict"
+
+class AzireConfig:
+    SPACE_KEY = os.environ["SPACE_KEY"]
+    API_KEY = os.environ['API_KEY']
+    MODEL_ID="churn_predict"
+    MODEL_VERSION="1.0"
+

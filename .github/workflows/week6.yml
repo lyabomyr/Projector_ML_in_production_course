@@ -1,13 +1,13 @@
-name: week5
+name: week6
 on:
   push:
     branches:
       - 'main'
       - 'master'
-      - 'week5'
-      - 'week_5'
+      - 'week6'
+      - 'week_6'
 env:
-  IMAGE_SIMLESERVER: docker_file_for_serving
+  IMAGE_SIMLESERVER: docker_file_for_monitoring
 
 jobs:
   build_and_push-project_test:
@@ -30,13 +30,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file:  week5/Dockerfile
+          file:  week6/Dockerfile
           push: true
           tags: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
-
-      - name: Docker Run Action
-          uses: addnab/docker-run-action@v3
-          with:
-            image: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
-            run: |
-              pytest unit_tests/test_fastapi.py

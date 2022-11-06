@@ -5,8 +5,8 @@ metadata:
   namespace: default
 spec:
   annotations:
-    seldon.io/rest-timeout: "60"
-    seldon.io/grpc-timeout: "60"
+    seldon.io/rest-timeout: "100"
+    seldon.io/grpc-timeout: "100"
   protocol: seldon
   predictors:
   - componentSpecs:
@@ -22,9 +22,9 @@ spec:
           - name: FLASK_SINGLE_THREADED
             value: '1'
           - name: SELDON_DEBUG
-            value: '1'          
+            value: '1'
           # - name: WANDB_API_KEY
-          #   value: "*********"             
+          #   value: "*********"
           imagePullPolicy: Always
 
     graph:
