@@ -34,8 +34,7 @@ helm install seldon-core seldon-core-operator \
     --namespace seldon-system
 ```
 Port Forward:
-```
-kubectl port-forward  --address 0.0.0.0 -n ambassador svc/ambassador 7777:80
+```kubectl port-forward  --address 0.0.0.0 -n ambassador svc/ambassador 7777:80
 ```
 
 run custom yaml file:
@@ -44,18 +43,17 @@ http://localhost:7777/seldon/default/churnpredict/api/v1.0/doc/#/
 
 curl request
 
-```
-curl -X POST "http://localhost:7777/seldon/default/churnpredict/api/v1.0/predictions" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"data\":{\"ndarray\":[[619, 1, 0, 42, 2, 0.0, 1, 1, 1, 101348.88]]}}"
+```curl -X POST "http://localhost:7777/seldon/default/churnpredict/api/v1.0/predictions" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"data\":{\"ndarray\":[[619, 1, 0, 42, 2, 0.0, 1, 1, 1, 101348.88]]}}"
 ```
 For run seldon u can use:
-    https://docs.seldon.io/projects/seldon-core/en/latest/install/kind.html
+```
+https://docs.seldon.io/projects/seldon-core/en/latest/install/kind.html
 ```
 
 
 ### DEPLOYMENT kubernetis  YAML files
 create cluster:
-```
-kind create cluster --name fastapindstreamlit
+```kind create cluster --name fastapindstreamlit
 ```
 
 deploy fast-api yaml file:
