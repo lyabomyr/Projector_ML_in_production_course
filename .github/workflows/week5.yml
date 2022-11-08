@@ -39,4 +39,6 @@ jobs:
         with:
          image: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
          run: |
+           export WANDB_PROJECT="liunomyr"
+           export WANDB_API_KEY= ${{secrets.WANDB_API_KEY}}
            pytest unit_tests/test_fastapi.py
