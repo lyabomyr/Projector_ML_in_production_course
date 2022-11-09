@@ -8,7 +8,6 @@ RUN pip install --no-cache-dir --upgrade -r  /ml_project/requirements.txt
 
 
 ENV WANDB_PROJECT="liunomyr"
-ENV WANDB_API_KEY="0a14fd83112d8258ad9cb780edb9e9932241f5fc"
 
 ENV PYTHONPATH="$PWD/ml_project"
 COPY week5/serving /ml_project/serving
