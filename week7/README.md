@@ -111,5 +111,11 @@ or in docker
 docker run -it lyabomyr/fstore:latest /bin/bash 
 ```
 
+```
+cd feature_repo ; python3 inference.py
+```
 
-
+test request:
+```
+curl -X POST localhost:8000/best-driver -H 'Content-Type: application/json' -d '{"driver_ids": [1001, 1002, 1003, 1004]}'
+```
