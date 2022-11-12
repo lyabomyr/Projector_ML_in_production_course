@@ -85,7 +85,17 @@ for run training pipeline
 move to fs directory and run python training file
 
 ```
+feast apply
 python3 training.py
+```
+run docker file 
+```
+docker run -it lyabomyr/fstore:latest /bin/bash 
+```
+then
+```
+cd fs/feature_repo; feast apply; python training.py
+
 ```
 
 for run inference:
@@ -95,4 +105,11 @@ move to fs directory and run python training file
 ```
 python3 inference.py
 ```
+or in docker
+
+```
+docker run -it lyabomyr/fstore:latest /bin/bash 
+```
+
+
 
