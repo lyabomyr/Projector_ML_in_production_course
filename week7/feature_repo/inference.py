@@ -7,6 +7,7 @@ from joblib import load
 from feast import FeatureStore
 from fastapi import FastAPI
 from pydantic import BaseModel
+from training import main
 
 
 class DriverRankingModel:
@@ -43,6 +44,7 @@ class DriverRankingModel:
         return best_driver_id
 
 
+main() #update training model
 # ----------------------
 model = DriverRankingModel(model_path="model.bin", repo_path="")
 
