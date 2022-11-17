@@ -1,0 +1,22 @@
+{
+    "os": "Linux-5.13.0-28-generic-x86_64-with-glibc2.29",
+    "python": "3.8.10",
+    "heartbeatAt": "2022-11-17T17:19:14.755103",
+    "startedAt": "2022-11-17T17:19:14.041922",
+    "docker": null,
+    "cpu_count": 8,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/home/lubomir/Desktop/Projector_ML_in_production_course/final_project/serving_streamlit.py",
+    "codePath": "final_project/serving_streamlit.py",
+    "git": {
+        "remote": "https://github.com/lyabomyr/Projector_ML_in_production_course.git",
+        "commit": "b7ee9fff072299f398f0174957b6369f73fe84d1"
+    },
+    "email": "lyabomyr@gmail.com",
+    "root": "/home/lubomir/Desktop/Projector_ML_in_production_course",
+    "host": "lubomir-nb",
+    "username": "lubomir",
+    "executable": "/home/lubomir/Desktop/Projector_ML_in_production_course/final_project/ev/bin/python3"
+}

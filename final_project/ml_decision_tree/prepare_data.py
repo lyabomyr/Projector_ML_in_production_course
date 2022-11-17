@@ -1,5 +1,6 @@
 from typing import List, Union, Dict, Any
 import pandas as pd
+import streamlit as st
 from sklearn.model_selection import train_test_split
 
 
@@ -26,3 +27,13 @@ def prepare_data_for_predict(dataset: pd.DataFrame) -> pd.DataFrame:
     else:
         dataset = common_prepare(dataset)
     return dataset
+
+def prepare_alone(X):
+        print(X)
+        dataset = pd.DataFrame( [X],
+                          columns=['CreditScore', 'Geography', 'Gender', 'Age', 'Tenure', 'Balance',
+                            'NumOfProducts', 'HasCrCard', 'IsActiveMember', 'EstimatedSalary'])
+        dataset = dataset.replace({'Gender': {'Female': 0, 'Male': 1}})
+        dataset = dataset.replace({'Geography': {'France': 1, 'Spain': 2, 'Germany': 3}})
+        return dataset
+
