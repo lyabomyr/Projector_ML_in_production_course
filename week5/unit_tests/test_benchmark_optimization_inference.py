@@ -52,7 +52,6 @@ def run_inference_process_pool(X=prepare_data_for_predict(pd.read_csv(test_file_
 def test_optimized_predict(benchmark):
     benchmark(run_inference_process_pool)
 
-
 # -------------------------------------------------- benchmark: 1 tests -------------------------------------------------
 # Name (time in ms)               Min       Max      Mean  StdDev    Median     IQR  Outliers     OPS  Rounds  Iterations
 # -----------------------------------------------------------------------------------------------------------------------

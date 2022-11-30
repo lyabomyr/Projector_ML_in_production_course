@@ -13,6 +13,7 @@ def client():
     return TestClient(app)
 
 
+
 def test_health_check(client):
     response = client.get("/")
     logging.warning(response.json())
