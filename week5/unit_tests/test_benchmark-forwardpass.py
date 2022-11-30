@@ -21,9 +21,21 @@ def my_predict():
     return result
 
 
-def test_load_model(benchmark):
+
+def test_load_model(benchmark): 
     benchmark(download_model)
 
+# --------------------------------------------- benchmark: 1 tests --------------------------------------------
+# Name (time in s)         Min      Max     Mean  StdDev   Median     IQR  Outliers     OPS  Rounds  Iterations
+# -------------------------------------------------------------------------------------------------------------
+# test_load_model      10.2292  11.5095  10.5239  0.5529  10.2788  0.3966       1;1  0.0950       5           1
+# -------------------------------------------------------------------------------------------------------------
 
 def test_benchmark_port_forwarding_batch_predict(benchmark):
-    benchmark(my_predict)
+     benchmark(my_predict)
+
+# ----------------------------------------------------------- benchmark: 1 tests -----------------------------------------------------------
+# Name (time in ms)                                    Min      Max     Mean  StdDev   Median     IQR  Outliers      OPS  Rounds  Iterations
+# ------------------------------------------------------------------------------------------------------------------------------------------
+# test_benchmark_port_forwarding_batch_predict     42.1755  47.1522  43.5888  1.4053  43.0883  1.8938       4;1  22.9417      18           1
+# ------------------------------------------------------------------------------------------------------------------------------------------

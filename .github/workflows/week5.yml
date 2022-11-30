@@ -33,10 +33,15 @@ jobs:
           file:  week5/Dockerfile
           push: true
           tags: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
+          secrets: |
+            "WANDB_API_KEY=${{secrets.WANDB_API_KEY}}"
+            
 
-      - name: Docker Run Action
-          uses: addnab/docker-run-action@v3
-          with:
-            image: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
-            run: |
-              pytest unit_tests/test_fastapi.py
+#       - name: Docker Run Action
+#         uses: addnab/docker-run-action@v3
+#         with:
+#          image: ${{secrets.LOGIN_DOCKER_HUB}}/${{env.IMAGE_SIMLESERVER}}:latest
+#          run: |
+          
+#            pytest unit_tests/test_fastapi.py
+

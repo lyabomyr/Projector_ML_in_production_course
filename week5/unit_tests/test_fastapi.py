@@ -8,10 +8,13 @@ from serving.fast_api import app
 from serving.config import model_file_name
 import logging
 
-client = TestClient(app)
+@pytest.fixture
+def client():
+    return TestClient(app)
 
 
-def test_health_check(caplog):
+
+def test_health_check(client):
     response = client.get("/")
     logging.warning(response.json())
     assert response.status_code == 200
@@ -20,7 +23,7 @@ def test_health_check(caplog):
                   "example url http://127.0.0.1:8000/docs"}
 
 
-def test_train():
+def test_train(client):
     url = '/train_model_and_push_to_wandb/'
     files = {'file': open('Churn_Modelling.csv', 'rb')}
     response = client.post(url, files=files)
@@ -29,7 +32,7 @@ def test_train():
     assert response.status_code == 200
 
 
-def test_predict():
+def test_predict(client):
     url = '/batch_predict_csv_file/'
     files = {'file': open('test_churn_modelling.csv', 'rb')}
     response = client.post(url, files=files)
